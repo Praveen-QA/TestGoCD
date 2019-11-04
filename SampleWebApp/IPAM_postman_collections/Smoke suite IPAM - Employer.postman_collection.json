@@ -1,0 +1,3017 @@
+{
+	"info": {
+		"_postman_id": "fe27d0d7-3b56-4230-965e-c57d41602129",
+		"name": "Smoke suite IPAM - Employer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User enrollment",
+			"item": [
+				{
+					"name": "retrieveTC",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0a63850e-51d2-4f84-ac84-8eb567f2efdd",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"TCversion\",\r",
+									"            \"TermsConditions\",\r",
+									"            \"bankID\",\r",
+									"            \"dom\",\r",
+									"            \"requiredType\",\r",
+									"            \"srv\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"TCversion\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/TCversion\",\r",
+									"              \"type\": \"number\"\r",
+									"            },\r",
+									"            \"TermsConditions\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/TermsConditions\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"bankID\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/bankID\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"requiredType\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/requiredType\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n\t\t\t\"bankID\":\"0680\",\n\t\t\t\"userType\":\"C\",\n\t\t\t\"lang\":\"EN\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Retrieve bank term & Conditions"
+					},
+					"response": [
+						{
+							"name": "502 Timeout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n\t\t\t\"bankID\":\"12345678\",\n\t\t\t\"lang\":\"EN\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Timeout",
+							"code": 502,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \n  \"res\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n        \t\"error_code\":\"502\",\n        \t\"error_description\":\"Connection timeout\"\n        }\n    } \n}"
+						},
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n\t\t\t\"bankID\":\"12345678\",\n\t\t\t\"lang\":\"EN\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \n  \"res\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n\t\t\t\"bankID\":\"12345678\",\n\t\t\t\"TCversion\":\"1\",\n\t\t\t\"Terms&conditions\":\"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.\",\n\t\t\t\"requiredType\":\"1\"\n        }\n    }\n}"
+						},
+						{
+							"name": "501 Connection error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"retrieveTC\",\n        \"header\" : {\n\t\t\t\"bankID\":\"12345678\",\n\t\t\t\"lang\":\"EN\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Connection error",
+							"code": 501,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"retrieveTC\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"501\",\r\n        \t\"error_description\":\"Connection error\"\r\n        }\r\n    } \r\n}"
+						}
+					]
+				},
+				{
+					"name": "identifyIPAMUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77ff8f8d-6928-4163-8ce2-24541e560ce4",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"postman.setEnvironmentVariable(\"UserId\", jsonData.res.header.user);\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"lastMobileNumberDigits\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"lastMobileNumberDigits\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/lastMobileNumberDigits\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"identifyIPAMUser\",\n        \"header\" : {\n        \t\"bankID\":\"0700\",\n\t\t\t\"private:taxID\":\"78945615\"\n\t\t}\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Identify new IPAC user"
+					},
+					"response": [
+						{
+							"name": "200 - OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"identifyIPAMUser\",\n        \"SID\":\"admomvwiemvimàf0\",\n        \"header\" : {\n        \t\"IBAN\":\"SI3323434234324234234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"identifyIPAMUser\",\n        \"SID\": \"admomvwiemvimàf0\",\n        \"header\": {\n        \t\"status\": null,\n        \t\"userID\": \"0021547\",\n        \t\"lastMobileNumberDigits\": \"8005\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "sendOTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fe5cb7b-9ec4-40e1-803b-265d08ec1157",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"sendOTP\",\n        \"sid\": \"{{sid}}\",\n        \"header\" : {\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "https://motiftest.bankart.si/jsondev",
+							"protocol": "https",
+							"host": [
+								"motiftest",
+								"bankart",
+								"si"
+							],
+							"path": [
+								"jsondev"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "504 not allowed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"sendOTP\",\n        \"header\" : {\n\t\t\t\"userID\":null,\n\t\t\t\"username\":\"Mark W.\",\n\t\t\t\"mobileNumber\": \"** 345\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "not allowed",
+							"code": 504,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"sendOTP\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"504\",\r\n        \t\"error_description\":\"Operation not allowed\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "502 timeout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"sendOTP\",\n        \"header\" : {\n\t\t\t\"userID\":null,\n\t\t\t\"username\":\"Mark W.\",\n\t\t\t\"mobileNumber\": \"** 345\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "timeout",
+							"code": 502,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"sendOTP\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"502\",\r\n        \t\"error_description\":\"Connection timeout\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "501 connection error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"sendOTP\",\n        \"header\" : {\n\t\t\t\"userID\":null,\n\t\t\t\"username\":\"Mark W.\",\n\t\t\t\"mobileNumber\": \"** 345\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "connection error",
+							"code": 501,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"sendOTP\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"501\",\r\n        \t\"error_description\":\"Connection error\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"sendOTP\",\n        \"header\" : {\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \n  \"res\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"sendOTP\",\n        \"header\" : {\n        }\n    } \n}"
+						}
+					]
+				},
+				{
+					"name": "checkOTP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "acf85807-1036-4c25-b2f5-5ee4a4942d7b",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"checkOTP\",\n       \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"otp\": \"111111\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Check OTP value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"checkOTP\",\n       \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/checkOTP/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"checkOTP",
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "",
+									"name": "Access-Control-Allow-Credentials",
+									"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "",
+									"name": "Access-Control-Allow-Headers",
+									"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "",
+									"name": "Access-Control-Allow-Methods",
+									"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*",
+									"name": "Access-Control-Allow-Origin",
+									"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "",
+									"name": "Access-Control-Expose-Headers",
+									"description": "Lets a server whitelist headers that browsers are allowed to access."
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive",
+									"name": "Connection",
+									"description": "Options that are desired for the connection"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip",
+									"name": "Content-Encoding",
+									"description": "The type of encoding used on the data."
+								},
+								{
+									"key": "Content-Length",
+									"value": "148",
+									"name": "Content-Length",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8",
+									"name": "Content-Type",
+									"description": "The mime type of this content"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 18 Jul 2018 15:01:46 GMT",
+									"name": "Date",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"af-MmpVeTvfnSW88c4riXD0uw\"",
+									"name": "ETag",
+									"description": "An identifier for a specific version of a resource, often a message digest"
+								},
+								{
+									"key": "Server",
+									"value": "nginx",
+									"name": "Server",
+									"description": "A name for the server"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding",
+									"name": "Vary",
+									"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"checkOTP\",\n        \"header\": {\n        }\n    }\n}"
+						},
+						{
+							"name": "508 Wrong OTP",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"checkOTP\",\n       \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"otp\": \"12345678\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/checkOTP/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"checkOTP",
+										"json"
+									]
+								}
+							},
+							"status": "Wrong OTP",
+							"code": 508,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"checkOTP\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"508\",\r\n        \t\"error_description\":\"Wrong OTP\"\r\n        }\r\n    } \r\n}"
+						}
+					]
+				},
+				{
+					"name": "sendDeviceInfo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fd7293f-0ca9-4a57-a5f0-e454234ad284",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"postman.setEnvironmentVariable(\"devId\", jsonData.res.header.deviceID);\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"deviceID\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"sendDeviceInfo\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"deviceID\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/deviceID\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Deviceid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"834\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"tMUu37AsCE2u3Cm5CumZsZU8iqGvbsaP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6de5c810-45bd-41e6-8f50-9f2e64230d83",
+								"exec": [
+									"var deviceModelTemp = (new Date()).toISOString();",
+									"pm.environment.set(\"deviceModel\", deviceModelTemp);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"sendDeviceInfo\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"deviceModel\": \"{{deviceModel}}\",\n\t\t\t\"devicePlatform\": \"Android n\",\n\t\t\t\"deviceVersion\":\"1.5\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"sendDeviceInfo\",\n        \"header\": {\n        \t\"deviceID\":\"6546468asd2\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "sendDeviceInfo Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fd7293f-0ca9-4a57-a5f0-e454234ad284",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"postman.setEnvironmentVariable(\"devId\", jsonData.res.header.deviceID);\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"err\",\r",
+									"            \"msg\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"err\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/err\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Err Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"E:V_DEVICE_ALREADY_EXISTS\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"msg\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/msg\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Msg Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"Device already exist\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"3Eaj6znMteIu99Um9bGqGL9WHlhN9vK8\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"sendDeviceInfo\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"deviceModel\": \"{{deviceModel}}\",\n\t\t\t\"devicePlatform\": \"Android n\",\n\t\t\t\"deviceVersion\":\"1.5\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"sendDeviceInfo\",\n        \"header\": {\n        \t\"deviceID\":\"6546468asd2\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getDeviceID Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9758bc8c-136d-414a-bc78-24c2dcda6070",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"postman.setEnvironmentVariable(\"devId\", jsonData.res.header.deviceID);\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"deviceID\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"getDeviceID\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"deviceID\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/deviceID\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Deviceid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"828\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"VPjk5khNEkb8naZ15fL8VEcZElLCyH5V\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"getDeviceID\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"deviceModel\": \"Android SDK built for x86\",\n\t\t\t\"devicePlatform\": \"Android n\",\n\t\t\t\"deviceVersion\":\"1.5\",\n\t\t\t\"overwrite\": \"Y\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"getDeviceID\",\n        \"header\": {\n        \t\"deviceID\":\"6546468asd2\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "setPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ec027482-68c1-40d2-b671-7d7583b0dd02",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var schema =\r",
+									"{\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"QRcodeString\",\r",
+									"        \"userRole\",\r",
+									"        \"merchantMCC\",\r",
+									"        \"merchantName\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"QRcodeString\": {\r",
+									"          \"$id\": \"#/properties/res/properties/QRcodeString\",\r",
+									"          \"type\": \"string\",\r",
+									"          \"title\": \"The Qrcodestring Schema\",\r",
+									"          \"default\": \"\",\r",
+									"          \"examples\": [\r",
+									"            \"001|MOTASI20|94OAVRH7|SZKBSI20|SI56192005007138064|null|null|null|null|71.129\"\r",
+									"          ],\r",
+									"          \"pattern\": \"^(.*)$\"\r",
+									"        },\r",
+									"        \"userRole\": {\r",
+									"          \"$id\": \"#/properties/res/properties/userRole\",\r",
+									"          \"type\": \"string\",\r",
+									"          \"title\": \"The Userrole Schema\",\r",
+									"          \"default\": \"\",\r",
+									"          \"examples\": [\r",
+									"            \"MCH OWNER\"\r",
+									"          ],\r",
+									"          \"pattern\": \"^(.*)$\"\r",
+									"        },\r",
+									"        \"merchantMCC\": {\r",
+									"          \"$id\": \"#/properties/res/properties/merchantMCC\",\r",
+									"          \"type\": \"string\",\r",
+									"          \"title\": \"The Merchantmcc Schema\",\r",
+									"          \"default\": \"\",\r",
+									"          \"examples\": [\r",
+									"            \"71.129\"\r",
+									"          ],\r",
+									"          \"pattern\": \"^(.*)$\"\r",
+									"        },\r",
+									"        \"merchantName\": {\r",
+									"          \"$id\": \"#/properties/res/properties/merchantName\",\r",
+									"          \"type\": \"string\",\r",
+									"          \"title\": \"The Merchantname Schema\",\r",
+									"          \"default\": \"\",\r",
+									"          \"examples\": [\r",
+									"            \"DOMACA PEKARNA D.O.O.\"\r",
+									"          ],\r",
+									"          \"pattern\": \"^(.*)$\"\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"deviceID\":\"{{devId}}\",\n\t\t\t\"private:pwd\":\"2252\",\n\t\t\t\"private:vpwd\":\"2252\"\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}/json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"json"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "509 PIN error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "PIN error",
+							"code": 509,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"setPassword\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"509\",\r\n        \t\"error_description\":\"PIN not matching\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"setPassword\",\n        \"header\": {\n        \t\"userRole\":\"Owner\",\n        \t\"merchantName\":\"Coffe shop\",\n        \t\"merchantLogo\":null,\n        \t\"merchantMCC\":\"10_215\",\n        \t\"QRcodeString\":\"...............\"\n        }\n    }\n}"
+						},
+						{
+							"name": "504 not Allowed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "not Allowed",
+							"code": 504,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"setPassword\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"504\",\r\n        \t\"error_description\":\"Operation not allowed\"\r\n        }\r\n    } \r\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e595bdde-119e-4a72-9bfc-e5e7626d5136",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var schema =\r",
+									"{\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"cumulativeAmountOutsideApp\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"userStatus\",\r",
+									"            \"cumulativeAmountOutsideAppCurrency\",\r",
+									"            \"T&CExpired\",\r",
+									"            \"maxMoneyRequestPerDay\",\r",
+									"            \"maxTransactionAmount\",\r",
+									"            \"maxBankTransactionAmount\",\r",
+									"            \"sid\",\r",
+									"            \"maxAmountOutsideApp\",\r",
+									"            \"maxAmountOutsideAppCurrency\",\r",
+									"            \"srv\",\r",
+									"            \"maxTransactionAmountCurrency\",\r",
+									"            \"lang\",\r",
+									"            \"user\",\r",
+									"            \"maxPaymentOutsideApp\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"cumulativeAmountOutsideApp\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/cumulativeAmountOutsideApp\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Cumulativeamountoutsideapp Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"100,00\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"login\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"userStatus\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/userStatus\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Userstatus Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"ACTIVE\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"cumulativeAmountOutsideAppCurrency\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/cumulativeAmountOutsideAppCurrency\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Cumulativeamountoutsideappcurrency Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"EUR\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"T&CExpired\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/T&CExpired\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The T&cexpired Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"N\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxMoneyRequestPerDay\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxMoneyRequestPerDay\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxmoneyrequestperday Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"20\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxTransactionAmount\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxTransactionAmount\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxtransactionamount Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"100,00\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxBankTransactionAmount\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxBankTransactionAmount\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxbanktransactionamount Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"100,00\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"J5cc0XPxHFKW3AHApXgVxxSDtE4sBz8j\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxAmountOutsideApp\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxAmountOutsideApp\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxamountoutsideapp Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"15,00\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxAmountOutsideAppCurrency\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxAmountOutsideAppCurrency\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxamountoutsideappcurrency Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"EUR\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxTransactionAmountCurrency\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxTransactionAmountCurrency\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxtransactionamountcurrency Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"EUR\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"lang\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/lang\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Lang Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"EN\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"maxPaymentOutsideApp\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/maxPaymentOutsideApp\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Maxpaymentoutsideapp Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"5\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"req\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n\t\t\t\"user\":\"{{UserId}}\",\r\n\t\t\t\"pwd\":\"2252\",\r\n\t\t\t\"deviceID\":\"{{devId}}\",\r\n\t\t    \"lang\": \"EN\"\r\n        }\r\n    } \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "verify user credential"
+					},
+					"response": [
+						{
+							"name": "510 username error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "username error",
+							"code": 510,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"510\",\r\n        \t\"error_description\":\"Wrong Username\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "505 Device error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Device error",
+							"code": 505,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"505\",\r\n        \t\"error_description\":\"Device not allowed\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "513 Enrollment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Enrollment",
+							"code": 513,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"513\",\r\n        \t\"error_description\":\"Enrollment not completed\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "511 Password error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Password error",
+							"code": 511,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"511\",\r\n        \t\"error_description\":\"Wrong Password\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"login\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"private:pwd\": \"********\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"Login\",\n        \"header\": {\n\t\t\t\"userID\":\"12345678\",\n\t\t\t\"status\": \"Active\",\n\t\t\t\"substatus\": null,\n\t\t\t\"language\":\"EN\",\n\t\t\t\"SID\": \"admomvwiemvimàf0\",\n\t\t\t\"fingerprint_status\":\"ACTIVE\",\n\t\t\t\"fingerprint_Token\":\"naip258idfms77kmfo\",\n\t\t\t\"T&cexpired\":\"N\",\n\t\t\t\"QRcodeString\":\"...............\",\n\t\t\t\"user_name\": null,\n\t\t\t\"user_contact\":{\n\t\t\t\t\"contact_type\":null\n\t\t\t\t\"contact\":null\n\t\t\t\t}\n        }\n    }\n}"
+						},
+						{
+							"name": "512 Blocked",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Blocked",
+							"code": 512,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"512\",\r\n        \t\"error_description\":\"Blocked User\"\r\n        }\r\n    } \r\n}"
+						},
+						{
+							"name": "504 Not Allowed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"homePage\",\n        \"header\" : {\n\t\t\t\"userID\":\"kjgkgjk6\",\n\t\t\t\"password\":\"******\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "Not Allowed",
+							"code": 504,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \r\n  \"res\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"AUTH\",\r\n        \"op\"  : \"login\",\r\n        \"header\" : {\r\n        \t\"error_code\":\"504\",\r\n        \t\"error_description\":\"Operation not allowed\"\r\n        }\r\n    } \r\n}"
+						}
+					]
+				},
+				{
+					"name": "acceptTC",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7f9b79c0-8ed6-4846-98ce-be2e6c68ed6e",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var schema =\r",
+									"{\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"acceptTC\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"J5cc0XPxHFKW3AHApXgVxxSDtE4sBz8j\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"req\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"{{srv_auth}}\",\r\n        \"op\"  : \"acceptTC\",\r\n        \"sid\" : \"{{sid}}\",\r\n        \"header\" : {\r\n        }\r\n    } \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Retrieve bank term & Conditions"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"acceptTC\",\n        \"header\" : {\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{ \n  \"res\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"acceptTC\",\n        \"header\" : {\n        }\n    } \n}"
+						}
+					]
+				},
+				{
+					"name": "sendPair",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "04b806fb-f87c-4976-975e-02923a876e6a",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"sendPair\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"uINkcM4IZYVTHLgwVAmxIiEEtabPhX2Z\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1f7e9ddb-5c79-467e-953f-72bda47caf69",
+								"exec": [
+									"var addDeviceEmailID = Date.now() + \"@gmail.com\";",
+									"pm.environment.set(\"addDeviceEmailID\", addDeviceEmailID);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"sendPair\",\n        \"sid\" : \"{{sid}}\",\n        \"header\" : {\n\t\t\t\"newDeviceName\":\"test\",\n\t\t\t\"contact\": {\n\t\t\t\t\"type\":\"email\",\n\t\t\t\t\"value\":\"{{addDeviceEmailID}}\"\n\t\t\t}\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"sendPair\",\n        \"header\": {\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "setFingerprint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "58ca899b-14c2-49f5-9676-c17d87a5f5cc",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"fp\", jsonData.res.fingerprintToken);\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"fingerprintToken\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"fingerprintToken\": {\r",
+									"          \"$id\": \"#/properties/res/properties/fingerprintToken\",\r",
+									"          \"type\": \"string\",\r",
+									"          \"title\": \"The Fingerprinttoken Schema\",\r",
+									"          \"default\": \"\",\r",
+									"          \"examples\": [\r",
+									"            \"g47b60grvjhmqs2vol926fw8ujn8rfqxb0cmnmb8q16qziot936550kjoxav9lnx\"\r",
+									"          ],\r",
+									"          \"pattern\": \"^(.*)$\"\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"setFingerprint\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}/json",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"json"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"setFingerprint\",\n        \"header\": {\n        \t\"fingerprint_Token\":\"naip258idfms77kmfo\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "removeFingerprint",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "218beeb8-c99d-4b93-aa45-8ab6258469e5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "45d24e7a-48cd-4d31-839e-dfb643a90405",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"sid\", jsonData.res.header.sid);\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\",\r",
+									"            \"sid\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"removeFingerprint\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"sid\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/sid\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Sid Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"MnA5NV7GQF0jg8yZxjioeIbPmXf7OmIY\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n  \"req\" : {\r\n        \"dom\" : \"{{domain}}\",\r\n        \"app\" : \"{{application}}\",\r\n        \"srv\" : \"{{srv_auth}}\",\r\n        \"op\"  : \"removeFingerprint\",\r\n    \t\"sid\": \"{{sid}}\",\r\n        \"header\" : {\r\n        \t\"fingerprintToken\": \"{{fp}}\"\r\n        }\r\n    } \r\n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"removeFingerprint\",\n        \"header\": {\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "00a38847-53e2-43bf-9e4a-a12d871222e3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var schema ={\r",
+									"  \"definitions\": {},\r",
+									"  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\r",
+									"  \"$id\": \"http://example.com/root.json\",\r",
+									"  \"type\": \"object\",\r",
+									"  \"title\": \"The Root Schema\",\r",
+									"  \"required\": [\r",
+									"    \"res\"\r",
+									"  ],\r",
+									"  \"properties\": {\r",
+									"    \"res\": {\r",
+									"      \"$id\": \"#/properties/res\",\r",
+									"      \"type\": \"object\",\r",
+									"      \"title\": \"The Res Schema\",\r",
+									"      \"required\": [\r",
+									"        \"header\"\r",
+									"      ],\r",
+									"      \"properties\": {\r",
+									"        \"header\": {\r",
+									"          \"$id\": \"#/properties/res/properties/header\",\r",
+									"          \"type\": \"object\",\r",
+									"          \"title\": \"The Header Schema\",\r",
+									"          \"required\": [\r",
+									"            \"app\",\r",
+									"            \"op\",\r",
+									"            \"dom\",\r",
+									"            \"srv\",\r",
+									"            \"user\"\r",
+									"          ],\r",
+									"          \"properties\": {\r",
+									"            \"app\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/app\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The App Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"IPAM\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"op\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/op\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Op Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"logout\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"dom\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/dom\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Dom Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"BANKARTIP\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"srv\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/srv\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The Srv Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"AUTH\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            },\r",
+									"            \"user\": {\r",
+									"              \"$id\": \"#/properties/res/properties/header/properties/user\",\r",
+									"              \"type\": \"string\",\r",
+									"              \"title\": \"The User Schema\",\r",
+									"              \"default\": \"\",\r",
+									"              \"examples\": [\r",
+									"                \"0700000000288\"\r",
+									"              ],\r",
+									"              \"pattern\": \"^(.*)$\"\r",
+									"            }\r",
+									"          }\r",
+									"        }\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"}\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  var result = tv4.validateResult(pm.response.json(), schema);\r",
+									"\r",
+									"if(!result.valid){\r",
+									"    console.log(result);\r",
+									"}\r",
+									"\r",
+									"  \r",
+									"  pm.expect(result.valid).to.be.true;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"{{srv_auth}}\",\n        \"op\"  : \"logout\",\n    \t\"sid\": \"{{sid}}\",\n        \"header\" : {\n        }\n    } \n}"
+						},
+						"url": {
+							"raw": "{{url}}",
+							"host": [
+								"{{url}}"
+							]
+						},
+						"description": "Set password value"
+					},
+					"response": [
+						{
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n  \"req\" : {\n        \"dom\" : \"{{domain}}\",\n        \"app\" : \"{{application}}\",\n        \"srv\" : \"AUTH\",\n        \"op\"  : \"setPassword\",\n    \t\"SID\": \"admomvwiemvimàf0\",\n        \"header\" : {\n\t\t\t\"userID\": \"{{userID}}\",\n\t\t\t\"private:pwd\":\"1234\",\n\t\t\t\"private:vpwd\":\"1234\"\n        }\n    } \n}"
+								},
+								"url": {
+									"raw": "{{url}}/json",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"json"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"res\": {\n        \"dom\": \"{{domain}}\",\n        \"app\": \"{{application}}\",\n        \"srv\": \"AUTH\",\n        \"op\": \"logout\",\n        \"header\": {\n        }\n    }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
